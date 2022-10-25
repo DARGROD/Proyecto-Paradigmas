@@ -91,7 +91,7 @@ const AddMocion = () => {
               onChange={handleInputChange}
               name="id_tipo"
                 />
-      </div>
+            </div>
           <div className="form-group">
             <label htmlFor="fecha">Fecha</label>
             <input
@@ -145,7 +145,7 @@ const AddMocion = () => {
       texto: mocion.texto,
       id_Mocion: mocion.id_Mocion,
     };
-    MocionService.create(data,currentTipoMocion.id_tipo_Mocion.id)
+    MocionService.create(data,currentTipoMocion.id_Mocion)
       .then((response) => {
         setMocion({
           texto: response.data.texto,
@@ -162,9 +162,9 @@ const AddMocion = () => {
   let valores = tipoMociones.map((tipoMocion, index)=> {
     return (
     console.log(tipoMocion),
-    <option key={index} value={tipoMocion.id_tipo_Mocion.id}>
+    <option key={index} value={tipoMocion.id}>
       
-      {tipoMocion.descripcion}
+      {tipoMocion.id}
     </option>
     );
     
@@ -205,18 +205,6 @@ const AddMocion = () => {
       ) : (
         <div>
           <div className="form-group">
-            <label htmlFor="texto">Texto</label>
-            <input
-              type="text"
-              className="form-control"
-              id="texto"
-              required
-              value={mocion.texto}
-              onChange={handleInputChange}
-              name="texto"
-            />
-          </div>
-          <div className="form-group">
             <label htmlFor="id_Mocion">Id Mocion</label>
             <input
               type="text"
@@ -227,11 +215,23 @@ const AddMocion = () => {
               onChange={handleInputChange}
               name="id_Mocion"
             />
-          </div>   
+          </div>  
+          <div className="form-group">
+            <label htmlFor="texto">Texto</label>
+            <input
+              type="text"
+              className="form-control"
+              id="texto"
+              required
+              value={mocion.texto}
+              onChange={handleInputChange}
+              name="texto"
+            />
+          </div> 
           <div className="form-group"> 
               <label htmlFor="id">Tipo de Moción</label>
               <select name = "id" id="id" placeholder="seleccione una opcion"  onChange={handleInputChange2}>
-              <option value= "0" >escoja</option>
+              <option value= "0" >Elija</option>
                 {valores}
               </select>
             </div>

@@ -5,11 +5,11 @@ const getAll = () => {
 const get = (id) => {
   return http.get(`/mociones/${id}`);
 };
-const create = (data) => {
+const create = (data, id) => {
   return http.post("/mociones", data);
 };
 const update = (id, data) => {
-  return http.put(`/mociones`, data);
+  return http.put(`/mociones/${id}`, data);
 };
 const remove = (id) => {
   return http.delete(`/mociones/${id}`);

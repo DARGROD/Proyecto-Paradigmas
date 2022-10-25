@@ -35,7 +35,7 @@ return(
  </li>
 
  <li className="nav-item">
- <Link to={"/add_Mocion"} className="nav-link">
+ <Link to={"/addMocion"} className="nav-link">
  Agregar Mocion
  </Link>
  </li>
