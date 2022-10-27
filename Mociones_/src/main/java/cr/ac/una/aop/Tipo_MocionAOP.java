@@ -17,7 +17,7 @@ public class Tipo_MocionAOP {
     @Autowired
     private LogRepository logRepository;
 
-    @Before("execution(* cr.ac.una.repository.TipoMocionRepository.findAll(..))") // los ".." son para aceptar cualquier parametro
+    @Before("execution(* cr.ac.una.repository.TipoMocionRepository.findAll(..))") // los ".." son para aceptar cualquier
     public void logBeforeFindAll(JoinPoint joinPoint){
 
         logRepository.save(new Log(joinPoint.getSignature().getName(), new Date()));

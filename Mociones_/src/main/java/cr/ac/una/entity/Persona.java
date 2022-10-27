@@ -13,7 +13,7 @@ public class Persona implements Serializable{
     private Long id;
     private String identificacion;
     private String nombre;
-    private Date fecha;
+
 
     public Long getId() {
         return id;
@@ -39,13 +39,7 @@ public class Persona implements Serializable{
         this.nombre = nombre;
     }
 
-    public Date getFecha() {
-        return fecha;
-    }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
 
     public Persona() {
     }

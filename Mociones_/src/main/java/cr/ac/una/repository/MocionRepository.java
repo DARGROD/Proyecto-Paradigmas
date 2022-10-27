@@ -1,6 +1,7 @@
 package cr.ac.una.repository;
 
 import cr.ac.una.entity.Mocion;
+import cr.ac.una.request.TipoMocionRequest;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

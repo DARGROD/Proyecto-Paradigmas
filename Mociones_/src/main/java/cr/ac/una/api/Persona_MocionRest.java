@@ -83,7 +83,7 @@ public class Persona_MocionRest {
         return ResponseEntity.ok(objeto.get());
     }
 
-    @PutMapping("/{id_PersonaMocion}/{id_persona}/{id_mocion}")
+    /*@PutMapping
     // modifica
     // antes de modificarla, hay que hacerle un attach con el findBy ->
     // el isPresent() valida si la persona existe -> es necesaria esa verificacion
@@ -98,6 +98,19 @@ public class Persona_MocionRest {
         objeto.setMocion(mocionRepository.findById(id_mocion).get());
         objeto.setPersona(personaRepository.findById(id_persona).get());
 
+        return ResponseEntity.ok(persona_nocionRepository.save(objeto));
+    }*/
+
+    @PutMapping
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    public ResponseEntity<Persona_Mocion> update(@RequestBody Persona_Mocion objeto) {
+        Mocion mos = mocionRepository.findById(objeto.getId()).get();
+        Persona per = personaRepository.findById(objeto.getId()).get();
+        if (!persona_nocionRepository.findById(objeto.getId()).isPresent()) {
+            ResponseEntity.badRequest().build();
+        }
+        objeto.setMocion(mocionRepository.findById(mos.getId()).get());
+        objeto.setPersona(personaRepository.findById(per.getId()).get());
         return ResponseEntity.ok(persona_nocionRepository.save(objeto));
     }
 

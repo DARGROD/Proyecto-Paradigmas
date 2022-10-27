@@ -1,6 +1,7 @@
 package cr.ac.una.api;
 
 import cr.ac.una.entity.Mocion;
+import cr.ac.una.entity.Persona;
 import cr.ac.una.entity.Tipo_Mocion;
 import cr.ac.una.repository.MocionRepository;
 import cr.ac.una.repository.TipoMocionRepository;
@@ -29,20 +30,7 @@ public class MocionRest {
         return ResponseEntity.ok(list);
     }
 
-    @PostMapping
-    @CrossOrigin(origins = "*", maxAge = 3600) // create
-    public ResponseEntity<Mocion> create(@RequestBody TipoMocionRequest req_){
-        Tipo_Mocion tipo = tipo_MocionRepository.findById(req_.getId_tipo()).get();
-        Mocion mos_ = new Mocion(req_);
-        if(tipo == null){
-            ResponseEntity.badRequest().build();
-            return ResponseEntity.ok(null);
-        }
-        mos_.setId_tipo_Mocion(tipo);
-        mos_.setTexto(req_.getTexto());
-        mos_ = mocionRepository.save(mos_);
-        return ResponseEntity.ok(mos_);
-    }
+
 
     /* Funciona
     @PostMapping
@@ -80,18 +68,47 @@ public class MocionRest {
         }
         return ResponseEntity.ok(objeto.get());
     }
+    @PostMapping
+    @CrossOrigin(origins = "*", maxAge = 3600) // create
+    public ResponseEntity<Mocion> create(@RequestBody TipoMocionRequest req_){
+        Tipo_Mocion tipo = tipo_MocionRepository.findById(req_.getId_tipo()).get();
+        Mocion mos_ = new Mocion(req_);
+        if(tipo == null){
+            ResponseEntity.badRequest().build();
+            return ResponseEntity.ok(null);
+        }
+        mos_.setId_tipo_Mocion(tipo);
+        mos_.setTexto(req_.getTexto());
+        mos_ = mocionRepository.save(mos_);
+        return ResponseEntity.ok(mos_);
+    }
+    @PutMapping
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    public ResponseEntity<Mocion> update(@RequestBody Mocion mos) {
+        Tipo_Mocion tipo = tipo_MocionRepository.findById(mos.getId()).get();
+        //Mocion mos_ = new Mocion(req);
+        if (!mocionRepository.findById(mos.getId()).isPresent()) {
+            ResponseEntity.badRequest().build();
+        }
+        mos.setId_tipo_Mocion(tipo_MocionRepository.findById(tipo.getId()).get());
+        //System.out.println((objeto));
+       // mos.setId_tipo_Mocion(tipo);
+        return ResponseEntity.ok(mocionRepository.save(mos));
+    }
 
-    @PutMapping("/{id_mocion}/{id_tipo}")
+   /* @PutMapping("/{id_mocion} ")///{id_tipo}
     // modifica pero se debe indicar el id de la mocion a la que se desea cambiar y el valor del nuevo id tipo mocion
     @CrossOrigin(origins = "*", maxAge = 3600)
-    public ResponseEntity<Mocion> update(@RequestBody Mocion objeto, @PathVariable Long id_mocion, @PathVariable Long id_tipo) {
+    public ResponseEntity<Mocion> update(@RequestBody Mocion objeto, @PathVariable Long id_mocion, @PathVariable Long id_tipo){//, @PathVariable Long id_tipo
         if (!mocionRepository.findById(objeto.getId()).isPresent()) {
             ResponseEntity.badRequest().build();
         }
-        objeto.setId_tipo_Mocion(tipo_MocionRepository.findById(id_tipo).get());
+        return ResponseEntity.ok(mocionRepository.save(objeto));
+        /*objeto.setId_tipo_Mocion(tipo_MocionRepository.findById(id_tipo).get());
         System.out.println((objeto));
         return ResponseEntity.ok(mocionRepository.save(objeto));
-    }
+    }*/
+
 
     @DeleteMapping("/{id}")
     @CrossOrigin(origins = "*", maxAge = 3600)
