@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
-import PersonaDataService from "../services/PersonaService";
-const Persona = props => {
+import PMDataService from "../services/Persona_MocionService";
+const EditPersonaMocion = props => {
     const { id } = useParams();
     let navigate = useNavigate();
     const initialPersonaState = {
         id: null,
-        identificacion: "",
-        nombre: "",
+        id_Persona_Mocion: "",
+        id_persona:"",
+        id_mocion:""
     };
     const [currentPersona, setCurrentPersona] = useState(initialPersonaState);
     const [message, setMessage] = useState("");
     const getPersona = id => {
-        PersonaDataService.get(id)
+        PMDataService.get(id)
             .then(response => {
                 setCurrentPersona(response.data);
                 console.log(response.data);
@@ -31,20 +32,20 @@ const Persona = props => {
     };
 
     const updatePersona = () => {
-        PersonaDataService.update(currentPersona.id, currentPersona)
+        PMDataService.update(currentPersona.id, currentPersona)
             .then(response => {
                 console.log(response.data);
-                setMessage("La persona fue actualizada");
+                setMessage("La persona con moción fue actualizada");
             })
             .catch(e => {
                 console.log(e);
             });
     };
     const deletePersona = () => {
-        PersonaDataService.remove(currentPersona.id)
+        PMDataService.remove(currentPersona.id)
             .then(response => {
                 console.log(response.data);
-                navigate("/personas");
+                navigate("/mociones_persona");
             })
             .catch(e => {
                 console.log(e);
@@ -54,10 +55,10 @@ const Persona = props => {
         <div>
             {currentPersona ? (
                 <div className="edit-form">
-                    <h4>Persona</h4>
+                    <h4>Persona con Moción</h4>
                     <form>
                         <div className="form-group">
-                            <label htmlFor="id">Id de la persona a modificar</label>
+                            <label htmlFor="id">Id Moción</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -68,24 +69,13 @@ const Persona = props => {
                             />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="identificacion">Identificacion</label>
+                            <label htmlFor="id_Persona_Mocion">Identificador de la persona con moción</label>
                             <input
                                 type="text"
                                 className="form-control"
-                                id="identificacion"
-                                name="identificacion"
-                                value={currentPersona.identificacion}
-                                onChange={handleInputChange}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="nombre">Nombre</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="nombre"
-                                name="nombre"
-                                value={currentPersona.nombre}
+                                id="id_Persona_Mocion"
+                                name="id_Persona_Mocion"
+                                value={currentPersona.id_Persona_Mocion}
                                 onChange={handleInputChange}
                             />
                         </div>
@@ -106,10 +96,10 @@ const Persona = props => {
             ) : (
                 <div>
                     <br />
-                    <p>Seleccione una persona...</p>
+                    <p>Seleccione una persona con Moción...</p>
                 </div>
             )}
         </div>
     );
 };
-export default Persona;
+export default EditPersonaMocion;

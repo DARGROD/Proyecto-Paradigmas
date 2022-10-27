@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
-import PersonaDataService from "../services/PersonaService";
-const Persona = props => {
+import MocionDataService from "../services/MocionService";
+const EditMocion = props => {
     const { id } = useParams();
     let navigate = useNavigate();
     const initialPersonaState = {
         id: null,
-        identificacion: "",
-        nombre: "",
+        id_Mocion: "",
+        texto: "",
+        fecha: "",
     };
     const [currentPersona, setCurrentPersona] = useState(initialPersonaState);
     const [message, setMessage] = useState("");
     const getPersona = id => {
-        PersonaDataService.get(id)
+        MocionDataService.get(id)
             .then(response => {
                 setCurrentPersona(response.data);
                 console.log(response.data);
@@ -31,20 +32,20 @@ const Persona = props => {
     };
 
     const updatePersona = () => {
-        PersonaDataService.update(currentPersona.id, currentPersona)
+        MocionDataService.update(currentPersona.id, currentPersona)
             .then(response => {
                 console.log(response.data);
-                setMessage("La persona fue actualizada");
+                setMessage("La moción fue actualizada");
             })
             .catch(e => {
                 console.log(e);
             });
     };
     const deletePersona = () => {
-        PersonaDataService.remove(currentPersona.id)
+        MocionDataService.remove(currentPersona.id)
             .then(response => {
                 console.log(response.data);
-                navigate("/personas");
+                navigate("/mociones");
             })
             .catch(e => {
                 console.log(e);
@@ -54,10 +55,10 @@ const Persona = props => {
         <div>
             {currentPersona ? (
                 <div className="edit-form">
-                    <h4>Persona</h4>
+                    <h4>Moción</h4>
                     <form>
                         <div className="form-group">
-                            <label htmlFor="id">Id de la persona a modificar</label>
+                            <label htmlFor="id">Id Moción</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -68,24 +69,35 @@ const Persona = props => {
                             />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="identificacion">Identificacion</label>
+                            <label htmlFor="id_Mocion">Identificador de la Moción</label>
                             <input
                                 type="text"
                                 className="form-control"
-                                id="identificacion"
-                                name="identificacion"
-                                value={currentPersona.identificacion}
+                                id="id_Mocion"
+                                name="id_Mocion"
+                                value={currentPersona.id_Mocion}
                                 onChange={handleInputChange}
                             />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="nombre">Nombre</label>
+                            <label htmlFor="texto">Texto</label>
                             <input
                                 type="text"
                                 className="form-control"
-                                id="nombre"
-                                name="nombre"
-                                value={currentPersona.nombre}
+                                id="texto"
+                                name="texto"
+                                value={currentPersona.texto}
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="fecha">Fecha</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="fecha"
+                                name="fecha"
+                                value={currentPersona.fecha}
                                 onChange={handleInputChange}
                             />
                         </div>
@@ -106,10 +118,10 @@ const Persona = props => {
             ) : (
                 <div>
                     <br />
-                    <p>Seleccione una persona...</p>
+                    <p>Seleccione una moción...</p>
                 </div>
             )}
         </div>
     );
 };
-export default Persona;
+export default EditMocion;

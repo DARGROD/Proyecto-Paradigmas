@@ -9,7 +9,7 @@ const create = (data, id) => {
   return http.post("/mociones", data);
 };
 const update = (id, data) => {
-  return http.put(`/mociones/${id}`, data);
+  return http.put(`/mociones`, data);
 };
 const remove = (id) => {
   return http.delete(`/mociones/${id}`);

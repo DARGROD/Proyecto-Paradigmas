@@ -44,7 +44,7 @@ const MocionList = () => {
                 onClick={() => setActiveMocion(mocion, index)}
                 key={index}
               >
-                {mocion.id_Mocion}
+                {mocion.id}
               </li>
             ))}
         </ul>
@@ -63,7 +63,7 @@ const MocionList = () => {
               <label>
                 <strong>Tipo de moción:</strong>
               </label>{" "}
-              {currentMocion.id_tipo_Mocion.id}
+              {currentMocion.id_tipo_Mocion.descripcion}
             </div>
             <div>
               <label>
@@ -77,7 +77,7 @@ const MocionList = () => {
               </label>{" "}
               {currentMocion.fecha}
             </div>
-            <Link to={"/mociones/" + currentMocion.id} className="btn-success">
+            <Link to={"/EditMociones"} className="btn-success">
               Edit
             </Link>
           </div>

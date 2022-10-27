@@ -45,6 +45,9 @@ const AddTipoMocion = () => {
         </div>
       ) : (
         <div>
+          <strong>Agregando un tipo de moción</strong>
+           <br></br>
+           <br></br>
           <div className="form-group">
             <label htmlFor="id_tipo_Mocion">Id Tipo Moción</label>
             <input
